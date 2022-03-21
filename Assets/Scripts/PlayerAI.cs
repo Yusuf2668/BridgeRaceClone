@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class PlayerAI : MonoBehaviour
 {
     [SerializeField] string targetTag;
-
+    [HideInInspector]
     public GameObject BridgeTarget;
 
     Player player;

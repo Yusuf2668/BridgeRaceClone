@@ -8,6 +8,7 @@ public class Player : GameController
     [SerializeField] Material material;
     [SerializeField] string brickTag;
     [SerializeField] string bridgeBrickTag;
+    [SerializeField] int bridgeLayerNumber;
 
     public bool canTakeBrick { get { return _brickLine != _brickList.Count - 1; } }
     public bool canTakeOff { get { return _brickLine > 0; } }
@@ -35,7 +36,7 @@ public class Player : GameController
     }
 
     private float brickPosition;
-    private int _brickLine = 0;
+    public int _brickLine = 0;
 
     private void Start()
     {
@@ -56,21 +57,11 @@ public class Player : GameController
             CollectBrick(_brickList, other.gameObject, brickLine);
             _brickLine++;
         }
-        if (other.gameObject.CompareTag("BridgeBrick") && canTakeOff && !other.gameObject.GetComponent<Material>() == material)
+        if (other.gameObject.CompareTag("BridgeBrick") && canTakeOff)
         {
             _brickLine--;
             TakeOffBrick(_brickList, brickLine, other.gameObject, material);
-            other.gameObject.tag = bridgeBrickTag;
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        //To drop the brick
-        if (collision.gameObject.CompareTag("BridgeBrick") && canTakeOff)
-        {
-            _brickLine--;
-            TakeOffBrick(_brickList, brickLine, collision.gameObject, material);
-            collision.gameObject.tag = bridgeBrickTag;
+            other.gameObject.layer = bridgeLayerNumber;
         }
     }
 }
