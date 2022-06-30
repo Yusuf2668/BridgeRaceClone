@@ -10,6 +10,8 @@ public class Player : GameController
     [SerializeField] string bridgeBrickTag;
     [SerializeField] int bridgeLayerNumber;
 
+
+    public int bridgeCounter;
     public bool canTakeBrick { get { return _brickLine != _brickList.Count - 1; } }
     public bool canTakeOff { get { return _brickLine > 0; } }
     public int brickLine
@@ -60,6 +62,7 @@ public class Player : GameController
         if (other.gameObject.CompareTag("BridgeBrick") && canTakeOff)
         {
             _brickLine--;
+            bridgeCounter++;
             TakeOffBrick(_brickList, brickLine, other.gameObject, material);
             other.gameObject.layer = bridgeLayerNumber;
         }

@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     protected void TakeOffBrick(List<GameObject> brickList, int brickLine, GameObject collision, Material material)
     {
         brickList[brickLine].transform.gameObject.SetActive(false);
+     
         collision.gameObject.GetComponent<BoxCollider>().isTrigger = true;
         collision.gameObject.GetComponent<MeshRenderer>().material = material;
     }
